@@ -15,12 +15,9 @@ import com.example.droidcafe.R;
 
 
 public class MainActivity extends AppCompatActivity {
-
-    // Tag for the intent extra.
     public static final String EXTRA_MESSAGE =
             "com.example.android.droidcafe.extra.MESSAGE";
 
-    // The order message, displayed in the Toast and sent to the new Activity.
     private String mOrderMessage;
 
     @Override
@@ -42,52 +39,47 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        // This comment suppresses the Android Studio warning about simplifying
-        // the return statements.
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.action_order:
+                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, mOrderMessage);
+                startActivity(intent);
+                return true;
+            case R.id.action_status:
+                displayToast(getString(R.string.action_status_message));
+                return true;
+            case R.id.action_favorites:
+                displayToast(getString(R.string.action_favorites_message));
+                return true;
+            case R.id.action_contact:
+                displayToast(getString(R.string.action_contact_message));
+                return true;
+            default:
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
     public void displayToast(String message) {
         Toast.makeText(getApplicationContext(), message,
                 Toast.LENGTH_SHORT).show();
     }
-
     public void showDonutOrder(View view) {
         mOrderMessage = getString(R.string.donut_order_message);
         displayToast(mOrderMessage);
     }
-
     public void showIceCreamOrder(View view) {
         mOrderMessage = getString(R.string.ice_cream_order_message);
         displayToast(mOrderMessage);
     }
-
     public void showFroyoOrder(View view) {
         mOrderMessage = getString(R.string.froyo_order_message);
         displayToast(mOrderMessage);
     }
-
 }
